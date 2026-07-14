@@ -28,7 +28,7 @@ boundaryField
     }
     top
     {
-		type    	zeroGradient; //symmetryPlane;
+		type    		symmetryPlane;
         /*
         type            fixedFluxPressure;
         value           uniform 0;
