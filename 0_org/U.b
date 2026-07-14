@@ -56,7 +56,9 @@ boundaryField
     }
     outletSediment
     {
-        type            zeroGradient;
+        //type            zeroGradient;
+        type            fixedValue;
+        value           uniform (0 0 0);
     }
     "(sideWalls|bottom|pier)"
     {
