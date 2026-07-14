@@ -72,7 +72,7 @@ boundary
         type patch;
         faces
         (
-            (4 8 11 7)
+            (1 2 6 5)
         );
     }
     
@@ -81,7 +81,7 @@ boundary
         type patch;
         faces
         (
-            (1 2 6 5)
+            (4 8 11 7)
         );
     }
 
