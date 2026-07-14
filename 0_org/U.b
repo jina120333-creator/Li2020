@@ -64,7 +64,7 @@ boundaryField
     }
     top
     {
-        type        slip; //symmetryPlane;
+        type        symmetryPlane;
         //type            zeroGradient;
 //        type            pressureInletOutletVelocity;
 //        value           uniform (0 0 0);
