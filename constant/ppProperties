@@ -18,7 +18,12 @@ FoamFile
 
 ppModel          JohnsonJackson;
 
-alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
+// alphaMax must not exceed alphaMaxG (granularRheologyProperties, 0.61):
+// the MuI shear-induced pressure diverges as alpha -> alphaMaxG, so the
+// frictional pressure has to stop compaction before that limit is reached.
+// With 0.635 the static bed compacts to alpha ~ 0.62 under its own weight
+// and pa blows up (observed 3.7e7 Pa).
+alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.61;
 
 alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.57;
 

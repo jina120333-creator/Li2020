@@ -88,29 +88,6 @@ OptimisationSwitches
 
 functions
 {
-    /*
-    // yPlus is intentionally not activated at this stage.
-    // For sedFoam, yPlus availability depends on turbulence model and fields.
-    // It is safer to run the case first, then post-process separately.
-
-    yPlus
-    {
-        type            yPlus;
-        libs            ("libfieldFunctionObjects.so");
-        writeControl    writeTime;
-    }
-
-    wallShearStress
-    {
-        type            wallShearStress;
-        libs            ("libfieldFunctionObjects.so");
-        writeControl    writeTime;
-    }
-    */
-}
-
-functions
-{
     alphaMonitor
     {
         type            fieldMinMax;
@@ -119,6 +96,56 @@ functions
         location        yes;
         writeControl    timeStep;
         writeInterval   10;
+    }
+
+    // The standard yPlus functionObject cannot be used with sedFoam:
+    // it looks up "turbulenceProperties" while sedFoam registers the
+    // fluid-phase model as "turbulenceProperties.b". Instead, compute
+    // y+ directly from the wall-normal gradient of U.b on wall patches.
+    yPlusWalls
+    {
+        type            coded;
+        libs            (utilityFunctionObjects);
+        name            yPlusWalls;
+        writeControl    adjustableRunTime;
+        writeInterval   0.1;
+
+        codeInclude
+        #{
+            #include "wallFvPatch.H"
+        #};
+
+        codeWrite
+        #{
+            const volVectorField& Ub =
+                mesh().lookupObject<volVectorField>("U.b");
+            const volScalarField& nutb =
+                mesh().lookupObject<volScalarField>("nut.b");
+
+            const scalar nu = 1e-06;
+
+            forAll(mesh().boundary(), patchi)
+            {
+                const fvPatch& fvp = mesh().boundary()[patchi];
+
+                // Note: no size() guard here - gMin/gAverage/gMax are
+                // collective reductions and must run on every processor,
+                // including those holding zero faces of this patch.
+                if (isA<wallFvPatch>(fvp))
+                {
+                    const scalarField nuEffw(nutb.boundaryField()[patchi] + nu);
+                    const vectorField snGradUw(Ub.boundaryField()[patchi].snGrad());
+                    const scalarField uTau(sqrt(nuEffw*mag(snGradUw)));
+                    const scalarField yc(1.0/fvp.deltaCoeffs());
+                    const scalarField yPlus(uTau*yc/nu);
+
+                    Info<< "yPlus on " << fvp.name()
+                        << " : min = " << gMin(yPlus)
+                        << ", avg = " << gAverage(yPlus)
+                        << ", max = " << gMax(yPlus) << endl;
+                }
+            }
+        #};
     }
 }
 // ************************************************************************* //
