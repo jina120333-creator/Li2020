@@ -54,9 +54,14 @@ boundaryField
     {
         type            zeroGradient;
     }
+    // The sediment-layer outlet face is an undisturbed bed far from the
+    // pier: treat it as impermeable (consistent with fixedFluxPressure
+    // on p_rbgh and U.a = 0 there). zeroGradient here would let the
+    // spurious outflow through the bed develop again.
     outletSediment
     {
-        type            zeroGradient;
+        type            fixedValue;
+        value           uniform (0 0 0);
     }
     "(sideWalls|bottom|pier)"
     {

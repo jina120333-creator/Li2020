@@ -59,6 +59,13 @@ boundaryField
         type            kqRWallFunction;
         value           $internalField;
     }
+    // Buffer-layer-capable k treatment for the pier (y+ ~ 10-30 there);
+    // exact patch name beats the regex above.
+    pier
+    {
+        type            kLowReWallFunction;
+        value           $internalField;
+    }
 
 }
 

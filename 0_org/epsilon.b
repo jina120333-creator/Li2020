@@ -59,6 +59,15 @@ boundaryField
         type            epsilonWallFunction;
         value           $internalField;
     }
+    // Binomial blending between the viscous and log-layer epsilon values
+    // keeps the wall function well-behaved in the buffer layer (pier
+    // y+ ~ 10-30); exact patch name beats the regex above.
+    pier
+    {
+        type            epsilonWallFunction;
+        blending        binomial;
+        value           $internalField;
+    }
 
 }
 

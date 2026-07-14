@@ -43,7 +43,8 @@ boundaryField
     }
     inletSediment
     {
-        type            zeroGradient;
+        type            fixedFluxPressure;
+        value           uniform 0;
     }
     outletWater
     {
@@ -51,10 +52,15 @@ boundaryField
         type            fixedValue;
         value           uniform 0;
     }
+    // Inside the bed the equilibrium p_rbgh is NOT zero:
+    // p_rbgh(z) ~ alpha*(rho_a - rho_b)*g*(0 - z), i.e. up to ~560 Pa at
+    // z = -0.06. Fixing 0 here creates a permanent ~560 Pa horizontal
+    // pressure imbalance that sucks pore water out through this face
+    // (Ub ~ 1 m/s) while U.a = 0 traps the grains, so the bed compacts
+    // against the outlet until alpha hits alphaMax and pff/pa blow up.
     outletSediment
     {
-//        type            zeroGradient;
-        type            fixedValue;
+        type            fixedFluxPressure;
         value           uniform 0;
     }
 

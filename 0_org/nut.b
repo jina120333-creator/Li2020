@@ -28,6 +28,15 @@ boundaryField
         Cs	            uniform 0.5;
         value           uniform 0;
     }
+    // Exact patch name beats the regex above. The pier wall cells sit at
+    // y+ ~ 10-30 (buffer layer), where the log-law based nutk function is
+    // invalid. Spalding's law is continuous over 0 < y+ < 300, so it stays
+    // accurate without refining the pier mesh.
+    pier
+    {
+        type            nutUSpaldingWallFunction;
+        value           uniform 0;
+    }
     top
     {
         type            symmetryPlane;
