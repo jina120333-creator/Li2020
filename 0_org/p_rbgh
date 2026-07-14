@@ -43,7 +43,10 @@ boundaryField
     }
     inletSediment
     {
-        type            zeroGradient;
+        //type            zeroGradient;
+		type           fixedFluxPressure;
+        value          $internalField;
+
     }
     outletWater
     {
