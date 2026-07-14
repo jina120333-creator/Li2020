@@ -21,7 +21,11 @@ granularDilatancy  off;
 
 granularCohesion  off;
 
-alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.61;
+// Jamming fraction of the mu(I) rheology: pa ~ (Bphi*d*|D|/(alphaMaxG-alpha))^2
+// diverges as alpha -> alphaMaxG. Set equal to alphaMax (ppProperties) so the
+// bed, which packs up to ~0.612 under its own weight and may locally approach
+// alphaMax, never crosses this singularity.
+alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.635;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.35;
 
@@ -35,7 +39,10 @@ n               n [ 0 0 0 0 0 0 0 ] 2.5;
 
 Dsmall          Dsmall [ 0 0 -1 0 0 0 0 ] 1e-4;
 
-relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 1;
+// Under-relax the shear-induced pressure update: with 1 the pa feedback
+// amplified across PIMPLE outer iterations once pff spiked
+// (9.8e3 -> 4.1e10 -> ... -> 3.3e36 within one time step).
+relaxPa         relaxPa [ 0 0 0 0 0 0 0 ] 0.5;
 
 FrictionModel   MuI;
 

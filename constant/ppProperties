@@ -18,12 +18,14 @@ FoamFile
 
 ppModel          JohnsonJackson;
 
-// alphaMax must not exceed alphaMaxG (granularRheologyProperties, 0.61):
-// the MuI shear-induced pressure diverges as alpha -> alphaMaxG, so the
-// frictional pressure has to stop compaction before that limit is reached.
-// With 0.635 the static bed compacts to alpha ~ 0.62 under its own weight
-// and pa blows up (observed 3.7e7 Pa).
-alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.61;
+// Random close packing limit. Must stay consistent with alphaMaxG in
+// granularRheologyProperties (also 0.635): if alphaMaxG < alphaMax, every
+// alpha in (alphaMaxG, alphaMax] puts the MuI shear-induced pressure past
+// its singularity. Also keep the initial bed fraction (setFieldsDict) close
+// to the self-weight equilibrium (~0.612 at z=-0.06) so consolidation does
+// not overshoot into the MULES cap at alphaMax, where pff is clamped at
+// Fr*(alphaMax-alphaMinFriction)^eta0/(1e-3)^eta1 = 1.37e10 and ejects cells.
+alphaMax         alphaMax [ 0 0 0 0 0 0 0 ] 0.635;
 
 alphaMinFriction alphaMinFriction [ 0 0 0 0 0 0 0 ] 0.57;
 

@@ -56,7 +56,11 @@ maxAlphaCo      0.5;//1;//0.3; //0.5;
 // Maximum allowed time step.
 // With local refined cells of about 0.625 mm and U0 = 0.233 m/s,
 // dt around 5e-4 to 7e-4 s gives Co around 0.2-0.3.
-maxDeltaT       3e-3; //1e-3; //5e-4; //2e-4;
+// The bed consolidation (pff-alpha coupling) is stiff: at dt ~ 1.5e-3 the
+// contact pressure oscillated by a factor ~15 between PIMPLE iterations
+// (pff 27.6k -> 33k -> 5k -> 1.9k -> ... -> 25.4k) and alpha ratcheted up
+// to alphaMax. Keep dt <= 1e-3 at least until the bed has settled.
+maxDeltaT       1e-3; //3e-3; //5e-4; //2e-4;
 
 libs (
 "libturbulenceModels.so"

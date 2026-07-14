@@ -30,7 +30,14 @@ regions
 
         fieldValues
         (
-            volScalarFieldValue alpha.a 0.58 //0.60
+            // Start the bed near its frictional (JohnsonJackson) self-weight
+            // equilibrium (~0.612 at the bottom with alphaMax = 0.635).
+            // Starting loose at 0.58 makes the whole bed consolidate from
+            // t = 0; the stiff pff-alpha coupling oscillates and the
+            // un-relaxed final PIMPLE iteration ratchets alpha up to the
+            // MULES cap (0.635) within ~10 ms, where pff = 1.37e10 kills
+            // the run.
+            volScalarFieldValue alpha.a 0.60 //0.58
         );
     }
 
