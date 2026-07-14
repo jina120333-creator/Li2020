@@ -23,10 +23,17 @@ boundaryField
 {
     "(sideWalls|bottom|pier)"
     {
-        type            nutkRoughWallFunction;
+        /*type            nutkRoughWallFunction;
     	Ks		        uniform 0;
         Cs	            uniform 0.5;
-        value           uniform 0;
+        value           uniform 0;*/
+
+		type                nutURoughWallFunction;
+       	roughnessHeight     0;
+	   	roughnessConstant   0.5;
+       	roughnessFactor     1;
+       	value               uniform 0;
+
     }
     top
     {
