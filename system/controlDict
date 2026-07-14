@@ -102,6 +102,21 @@ functions
         writeInterval   10;
     }
 
+    // Track WHERE the granular pressures and sediment velocity peak:
+    // pa parked at ~17.5 kPa in a quasi-static bed means the cell sits in
+    // the clamped mu(I) singular zone (alpha > alphaMaxG); the location
+    // tells immediately whether it is the bed bottom, the pier wall, or
+    // an inlet/outlet face.
+    granularMonitor
+    {
+        type            fieldMinMax;
+        libs            (fieldFunctionObjects);
+        fields          (pa U.a);
+        location        yes;
+        writeControl    timeStep;
+        writeInterval   10;
+    }
+
     // The standard yPlus functionObject cannot be used with sedFoam:
     // it looks up "turbulenceProperties" while sedFoam registers the
     // fluid-phase model as "turbulenceProperties.b". Instead, compute
