@@ -58,12 +58,17 @@ edges
 
 boundary
 (
+    // NOTE: face (4 8 11 7) is the WATER column (x=-0.8, z: 0 ~ 0.05)
+    //       face (0 4 7 3)  is the SEDIMENT layer (x=-0.8, z: -0.06 ~ 0)
+    // These were previously swapped, which applied the log-law water inlet
+    // (and alpha.a = 0) to the buried bed face and U.b = 0 to the water
+    // column, causing a spurious jet and over-compaction at the inlet bed.
     inletWater
     {
         type patch;
         faces
         (
-            (0 4 7 3)
+            (4 8 11 7)
         );
     }
 
@@ -72,7 +77,7 @@ boundary
         type patch;
         faces
         (
-            (4 8 11 7)
+            (0 4 7 3)
         );
     }
     

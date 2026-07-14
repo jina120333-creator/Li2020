@@ -21,6 +21,12 @@ granularDilatancy  off;
 
 granularCohesion  off;
 
+// alphaMaxG is the maximum packing fraction of the mu(I) rheology:
+// the static-bed equilibrium concentration tends to alphaMaxG as I -> 0.
+// It MUST stay strictly below alphaMax (0.635) in ppProperties, because the
+// JohnsonJackson contact pressure pff ~ 1/(alphaMax - alpha)^eta1 is singular
+// at alphaMax. Setting alphaMaxG = 0.635 makes the bed compact exactly into
+// that singularity (pff -> 1e10) and guarantees divergence. Keep at 0.61.
 alphaMaxG       alphaMaxG [ 0 0 0 0 0 0 0 ] 0.61;
 
 mus             mus  [ 0 0 0 0 0 0 0 ] 0.35;
