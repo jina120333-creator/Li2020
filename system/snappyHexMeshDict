@@ -41,19 +41,21 @@ geometry
         type searchableBox;
         //min (-0.10 -0.075 -0.030);
         //max ( 0.10  0.075  0.050);
-        min (-0.06 -0.055 -0.015);
+        //min (-0.06 -0.055 -0.015);
+        //max ( 0.06  0.055  0.050);
+        min (-0.06 -0.055 -0.065);
         max ( 0.06  0.055  0.050);
     }
 
     // Fine scour-bed region around expected initial scour hole
-    scourBedFineBox
+    /*scourBedFineBox
     {
         type searchableBox;
         //min (-0.12 -0.075 -0.020);
         //max ( 0.18  0.075  0.020);
         min (-0.08 -0.060 -0.020);
         max ( 0.14  0.060  0.020);
-    }
+    }*/
 
     // Broader bed refinement region for approach, side acceleration, and near-wake bed
     /*
@@ -110,11 +112,11 @@ castellatedMeshControls
             levels ((1E15 2));
         }
 
-        scourBedFineBox
+        /*scourBedFineBox
         {
             mode inside;
             levels ((1E15 3));
-        }
+        }*/
 /*
         bedRefinementBox
         {
