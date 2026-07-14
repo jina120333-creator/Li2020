@@ -56,7 +56,12 @@ boundaryField
     }
     outletSediment
     {
-        type            zeroGradient;
+        // Closed for pore water, like inletSediment. With zeroGradient here
+        // (open face) the initial consolidation excess pore pressure drives
+        // a strong drainage jet (+x) through the bed end, compacting alpha
+        // to the packing limit within ~0.01 s and diverging.
+        type            fixedValue;
+        value           uniform (0 0 0);
     }
     "(sideWalls|bottom|pier)"
     {

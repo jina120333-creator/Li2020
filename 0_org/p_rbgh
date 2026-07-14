@@ -53,8 +53,12 @@ boundaryField
     }
     outletSediment
     {
-//        type            zeroGradient;
-        type            fixedValue;
+        // Must NOT be fixedValue 0: inside the bed p_rbgh carries the
+        // buoyant sediment load during consolidation/scour transients.
+        // Pinning it to 0 at this face creates a huge horizontal pressure
+        // gradient that sucks pore water out of the bed. The pressure
+        // reference stays on outletWater (fixedValue 0).
+        type            fixedFluxPressure;
         value           uniform 0;
     }
 
