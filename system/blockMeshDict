@@ -58,30 +58,30 @@ edges
 
 boundary
 (
-    inletWater
-    {
-        type patch;
-        faces
-        (
-            (1 2 6 5)
-        );
-    }
-
     inletSediment
     {
         type patch;
         faces
         (
-            (0 4 7 3)    
+            (0 4 7 3)
         );
     }
-    
-    outletSediment
+
+    inletWater
     {
         type patch;
         faces
         (
             (4 8 11 7)
+        );
+    }
+
+    outletSediment
+    {
+        type patch;
+        faces
+        (
+            (1 2 6 5)
         );
     }
 
@@ -93,16 +93,15 @@ boundary
             (5 6 10 9)
         );
     }
+
     sideWalls
     {
         type wall;
         faces
         (
-            // y = -0.125 side wall
             (0 1 5 4)
             (4 5 9 8)
 
-            // y = +0.125 side wall
             (3 7 6 2)
             (7 11 10 6)
         );
@@ -119,7 +118,7 @@ boundary
 
     top
     {
-        type symmetryPlane; //patch;
+        type symmetryPlane;
         faces
         (
             (8 9 10 11)
