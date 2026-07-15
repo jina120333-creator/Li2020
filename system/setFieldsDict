@@ -30,7 +30,7 @@ regions
 
         fieldValues
         (
-            volScalarFieldValue alpha.a 0.58 //0.60
+            volScalarFieldValue alpha.a 0.60 //0.58
         );
     }
 

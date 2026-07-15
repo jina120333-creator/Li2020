@@ -16,7 +16,7 @@ FoamFile
 
 dimensions      [0 2 -2 0 0 0 0];
 
-internalField   uniform 0; //8.5e-4;  //4.14e-03; //$turbulentKE;
+internalField   uniform 8.5e-4; //0;  //4.14e-03; //$turbulentKE;
 
 boundaryField
 {
